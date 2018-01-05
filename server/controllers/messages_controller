@@ -1,0 +1,33 @@
+
+let messages = [], id = 0;
+
+module.exports = {
+    
+    read: (req, res, next)=>{
+        res.status(200).json(messages);
+    },
+    
+    create: (req, res, next)=>{
+        let {text, time} = req.body;
+        messages.push({ text, time, id });
+        id++
+        res.status(200).json(messages);
+    },
+
+    update: (req, res, next)=>{
+        let { text } = req.body;
+        let updateId = req.query.id;
+        let messageIndex = messages.indexOf((message)=>{message.id===updatedId});
+        let message = messages[messageIndex];
+        message.text = text;
+        res.status(200).json(messages);
+    },
+
+    delete: (req, res, next)=>{
+        let updateId = req.query.id;
+        let messageIndex = messages.indexOf((message)=>{message.id===updatedId});
+        messages.splice(messageIndex, 1);
+        res.status(200).json(messages);
+    }
+}
+
